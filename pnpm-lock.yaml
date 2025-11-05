@@ -32,9 +32,6 @@ importers:
       '@nuxt/ui':
         specifier: 4.1.0
         version: 4.1.0(@babel/parser@7.28.5)(change-case@5.4.4)(db0@0.3.4(better-sqlite3@12.4.1))(embla-carousel@8.6.0)(ioredis@5.8.2)(magicast@0.5.1)(typescript@5.9.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))(zod@3.25.76)
-      '@tailwindcss/vite':
-        specifier: ^4.1.16
-        version: 4.1.16(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))
       '@unocss/reset':
         specifier: ^66.5.4
         version: 66.5.4
@@ -44,12 +41,12 @@ importers:
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
+      jsxgraph:
+        specifier: ^1.12.0
+        version: 1.12.0
       nuxt:
         specifier: ^4.2.0
         version: 4.2.0(@parcel/watcher@2.5.1)(@types/node@24.10.0)(@vue/compiler-sfc@3.5.22)(better-sqlite3@12.4.1)(db0@0.3.4(better-sqlite3@12.4.1))(eslint@9.39.1(jiti@2.6.1))(ioredis@5.8.2)(lightningcss@1.30.2)(magicast@0.5.1)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))(yaml@2.8.1)
-      tailwindcss:
-        specifier: ^4.1.16
-        version: 4.1.16
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -81,6 +78,27 @@ importers:
       xsai:
         specifier: 0.4.0-beta.8
         version: 0.4.0-beta.8(arktype@2.1.25)(zod-to-json-schema@3.24.6(zod@3.25.76))(zod@3.25.76)
+
+  packages/canvas:
+    dependencies:
+      '@chat-tutor/shared':
+        specifier: workspace:*
+        version: link:../shared
+      arktype:
+        specifier: ^2.1.25
+        version: 2.1.25
+      jsxgraph:
+        specifier: ^1.12.0
+        version: 1.12.0
+
+  packages/canvas-resolver:
+    dependencies:
+      '@chat-tutor/shared':
+        specifier: workspace:*
+        version: link:../shared
+      arktype:
+        specifier: ^2.1.25
+        version: 2.1.25
 
   packages/pkg: {}
 
@@ -3612,6 +3630,10 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+
+  jsxgraph@1.12.0:
+    resolution: {integrity: sha512-o/QenjjScmmZD/NgPQ7PYEKYMmhbDzdpaWcW5BY7HfF13tE8NO3aMLSDoFrWDntby3Rrd4lamPrjhU27JHAfDw==}
+    engines: {node: '>=0.6.0'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -9892,6 +9914,8 @@ snapshots:
   json-stable-stringify-without-jsonify@1.0.1: {}
 
   json5@2.2.3: {}
+
+  jsxgraph@1.12.0: {}
 
   keyv@4.5.4:
     dependencies:

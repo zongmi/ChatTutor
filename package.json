@@ -21,6 +21,7 @@
     "@unocss/reset": "^66.5.4",
     "better-sqlite3": "^12.4.1",
     "eslint": "^9.39.1",
+    "jsxgraph": "^1.12.0",
     "nuxt": "^4.2.0",
     "typescript": "^5.9.3",
     "vue": "^3.5.22",

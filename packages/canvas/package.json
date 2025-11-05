@@ -1,0 +1,16 @@
+{
+  "name": "@chat-tutor/canvas",
+  "version": "0.0.0",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {},
+  "packageManager": "pnpm@10.8.1",
+  "dependencies": {
+    "@chat-tutor/shared": "workspace:*",
+    "arktype": "^2.1.25",
+    "jsxgraph": "^1.12.0"
+  }
+}
