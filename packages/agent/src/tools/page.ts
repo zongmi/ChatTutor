@@ -21,8 +21,10 @@ export const getPageTools = async (pages: Page[]) => {
       title: 'string',
       range: type.number.array().describe('Range (y axis) of the coordinate system, a number tuple like [min, max]'),
       domain: type.number.array().describe('Domain (x axis) of the coordinate system, a number tuple like [min, max]'),
+      axis: type.boolean.describe('Whether to show the axis'),
+      grid: type.boolean.describe('Whether to show the grid'),
     }),
-    execute: async ({ id, title, range, domain }) => {
+    execute: async ({ id, title, range, domain, axis, grid }) => {
       const result = checkExist(id)
       if (result) {
         return result
@@ -34,6 +36,8 @@ export const getPageTools = async (pages: Page[]) => {
         steps: [],
         range: range as [number, number],
         domain: domain as [number, number],
+        axis,
+        grid,
       } as CanvasPage)
       return {
         success: true,

@@ -37,7 +37,12 @@ export const useBoard = () => {
     container.style.height = '500px'
     container.style.display = 'flex'
     board.value!.appendChild(container)
-    const renderer = createCanvasRenderer(container.id)
+    const renderer = createCanvasRenderer(container.id, {
+      range: page.range,
+      domain: page.domain,
+      axis: page.axis,
+      grid: page.grid,
+    })
     canvasRendererMap.set(page.id!, renderer)
     renderer.load(page.steps)
   }

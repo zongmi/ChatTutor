@@ -1,4 +1,4 @@
-import { JSXGraph, type Board } from 'jsxgraph'
+import { JSXGraph } from 'jsxgraph'
 import type { CanvasPageAction } from './page'
 import type { ElementAction } from './element'
 import { structures } from './elements'
@@ -14,10 +14,19 @@ export const registerElement = <T extends object>(name: string, constructor: Ele
 
 structures.forEach(([name, constructor]) => registerElement(name, constructor))
 
-export const createCanvasRenderer = (id: string) => {
+export interface CanvasRendererOptions {
+  range: [number, number]
+  domain: [number, number]
+  axis?: boolean
+  grid?: boolean
+}
+
+export const createCanvasRenderer = (id: string, options: CanvasRendererOptions) => {
+  const { range, domain, axis = true, grid = true } = options
   const board = JSXGraph.initBoard(id, {
-    boundingBox: [-10, 10, 10, -10],
-    grid: true,
+    boundingBox: [domain[0], range[1], domain[1], range[0]],
+    grid,
+    axis,
   })
   const pool = new Map<string, unknown>()
   const getElement: ElementGetter = <T = unknown>(id: string) => {

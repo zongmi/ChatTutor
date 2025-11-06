@@ -55,8 +55,8 @@ export const createAgent = (options: AgentOptions) => {
           }
         }
         if (chunk.toolName === 'create_canvas') {
-          const { id, title, range, domain } = JSON.parse(chunk.args) as { id: string, title: string, range: [number, number], domain: [number, number] }
-          yield { type: 'page', options: { id, title, type: PageType.CANVAS, range, domain, steps: [] } } satisfies PageCreationAction<CanvasPage>
+          const { id, title, range, domain, axis, grid } = JSON.parse(chunk.args) as { id: string, title: string, range: [number, number], domain: [number, number], axis: boolean, grid: boolean }
+          yield { type: 'page', options: { id, title, type: PageType.CANVAS, range, domain, axis, grid, steps: [] } } satisfies PageCreationAction<CanvasPage>
         }
       }
     }

@@ -19,6 +19,8 @@ export const system = () => {
     @param \`title\`: The short title of the page.
     @param \`range\`: The range (y axis) of the coordinate system, a number tuple like [min, max].
     @param \`domain\`: The domain (x axis) of the coordinate system, a number tuple like [min, max].
+    @param \`axis\`: Whether to show the axis. For a problem related function or analytic geometry, you should set it to true.
+    @param \`grid\`: Whether to show the grid. For a pure-geometry problem, you should set it to false.
     @return \`id\`: The only-one \`id\` of the page.
   - \`act\`: Act on some page.
     @param \`page\`: The \`id\` of the page to act on.

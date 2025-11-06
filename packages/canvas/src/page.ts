@@ -7,6 +7,8 @@ export type CanvasPageAction =
 export type CanvasPageExtends = {
   range: [number, number] // y axis range
   domain: [number, number] // x axis range
+  axis: boolean
+  grid: boolean
 }
 
 export type CanvasPage = Page<CanvasPageAction, PageType.CANVAS> & CanvasPageExtends
