@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { handleAction, board, loadPages } = useBoard()
+const { handleAction, board, loadPages, currentPages, page } = useBoard()
 const { messages, input, send, loadMessages } = useChat(handleAction)
 
 const route = useRoute()
@@ -30,11 +30,24 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-row w-full h-full overflow-hidden">
-    <div class="flex flex-1 h-full items-center justify-center overflow-hidden">
-      <div ref="board" class="w-full h-240 flex items-center justify-center"></div>
+    <div class="flex flex-1 flex-col h-full items-center justify-center overflow-hidden p-5 min-w-0">
+      <div
+        ref="board"
+        class="w-full h-130 flex justify-center"
+      />
+      <div class="w-full max-w-screen-md justify-center flex flex-col gap-5">
+        <PagesPreview
+          :pages="currentPages"
+          @select="(id) => page = id"
+        />
+      </div>
     </div>
     <div class="flex flex-col h-screen max-h-screen bg-gray-200 w-100 p-3 shadow-lg flex-shrink-0">
-      <Chat :messages="messages" v-model:input="input" @keydown.enter="send" />
+      <Chat
+        v-model:input="input"
+        :messages="messages"
+        @keydown.enter="send"
+      />
     </div>
   </div>
 </template>

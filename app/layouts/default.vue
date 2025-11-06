@@ -38,7 +38,7 @@ void (async () => {
           <h2 class="text-sm font-bold select-none">
             Recent
           </h2>
-          <ButtonContainer v-for="chat in chats" :key="chat.id" class="text-sm w-full cursor-pointer select-none p-2">
+          <ButtonContainer v-for="chat in chats" :key="chat.id" class="text-sm w-full cursor-pointer select-none p-2" @click="navigateTo(`/chat/${chat.id}`)">
             <div class="flex flex-row items-center gap-5">
               <div class="flex flex-col">
                 <h3>{{ chat.title }}</h3>

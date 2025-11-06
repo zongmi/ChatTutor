@@ -11,6 +11,21 @@ export type ActionHandler = (action: FullAction) => void
 export const useBoard = () => {
   const board = ref<HTMLElement | null>(null)
   const currentPages = ref<Page[]>([])
+  const page = ref<string | null>(null)
+
+  onMounted(() => {
+    watch(page, (id) => {
+      nextTick(() => {
+        if (!id) return
+        const ctn = board.value!.querySelector(`#${id}`)
+        if (!ctn) return
+        [...board.value!.childNodes].forEach(child => {
+          (<HTMLElement>child).style.display = 'none'
+        })
+        ;(<HTMLElement>ctn).style.display = 'block'
+      })
+    })
+  })
 
   const canvasRendererMap = new Map<string, ReturnType<typeof createCanvasRenderer>>()
 
@@ -27,11 +42,12 @@ export const useBoard = () => {
     renderer.load(page.steps)
   }
 
-  const loadPage = (page: Page) => {
-    currentPages.value.push(page)
-    if (page.type === PageType.CANVAS) {
-      loadCanvasPage(page)
+  const loadPage = (p: Page) => {
+    currentPages.value.push(p)
+    if (p.type === PageType.CANVAS) {
+      loadCanvasPage(p)
     }
+    page.value = p.id!
   }
   
   const loadPages = (pages: Page[]) => pages.forEach(loadPage)
@@ -62,6 +78,8 @@ export const useBoard = () => {
 
   return {
     board,
+    page,
+    currentPages,
     handleAction,
     loadPage,
     loadPages,
