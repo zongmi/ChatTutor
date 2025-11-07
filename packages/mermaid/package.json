@@ -1,0 +1,16 @@
+{
+  "name": "@chat-tutor/mermaid",
+  "version": "0.0.0",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@chat-tutor/shared": "workspace:*",
+    "arktype": "^2.1.25",
+    "mermaid": "^11.12.1"
+  },
+  "packageManager": "pnpm@10.8.1"
+}

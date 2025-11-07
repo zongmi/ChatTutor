@@ -2,8 +2,9 @@ import { type Tool, tool } from 'xsai'
 import { type } from 'arktype'
 import { ElementAction } from '@chat-tutor/canvas'
 import type { Page } from '@chat-tutor/shared'
+import { MermaidPageSetAction } from '@chat-tutor/mermaid'
 
-const Actions = type.or(ElementAction)
+const Actions = type.or(ElementAction, MermaidPageSetAction)
 
 export const getActionTools = async (pages: Page[]) => {
   const act = tool({

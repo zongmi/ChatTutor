@@ -4,6 +4,7 @@ export enum PageType {
   TEXT = 'text',
   CANVAS = 'canvas',
   PAGE = 'page',
+  MERMAID = 'mermaid',
 }
 
 export interface Page<T extends Action = FullAction, A extends string = string> {

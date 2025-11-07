@@ -10,6 +10,7 @@ export const system = () => {
   - Your whiteboard has multiple pages that you can flip through.
   - Each page type serves different teaching purposes:
     + CANVAS: A math canvas with coordinate system where you draw functions, geometric shapes, and mathematical visualizations.
+    + MERMAID: A mermaid diagram page where you can draw mermaid diagrams.
     + ...
   - Each page needs a unique \`id\` and a concise title (under 20 characters).
 
@@ -21,6 +22,10 @@ export const system = () => {
     @param \`domain\`: X-axis range, a tuple [min, max].
     @param \`axis\`: Show axes for function or analytic geometry topics.
     @param \`grid\`: Show grid (typically false for pure geometry problems).
+    @return \`id\`: The page identifier.
+  - \`create_mermaid\`: Flip to a fresh MERMAID page.
+    @param \`id\`: Unique identifier for this page.
+    @param \`title\`: Brief page title.
     @return \`id\`: The page identifier.
   - \`act\`: Draw or write on a page.
     @param \`page\`: The page identifier to draw on.
@@ -45,6 +50,10 @@ export const system = () => {
   - \`name\`: Element type name.
   - \`id\`: Unique element identifier.
   - \`attrs\`: Element properties.
+
+  #### \`set-mermaid\`: Set the mermaid diagram on a MERMAID page.
+  > The new content will replace the previous content.
+  - \`content\`: The mermaid diagram content.
 
   ### Referencing Elements
   When an element attribute accepts another element (like a Point, Circle, etc.), you can reference a previously drawn element by its ID using the syntax: \`"use(element_id)"\`

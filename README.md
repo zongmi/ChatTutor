@@ -33,7 +33,8 @@ ChatTutor effectively solves this problem by bringing all the teaching tools use
 - [x] Math Canvas
 ![Math Canvas](./public/demo1.png)
 - [ ] Code Page
-- [ ] Mindmap
+- [x] Mindmap
+![Mindmap](./public/demo2.png)
 - [ ] Physics Canvas
 - [ ] Digital Logic Canvas
 - [ ] Problem Solving created by AI to user

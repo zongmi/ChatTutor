@@ -13,6 +13,7 @@
   "dependencies": {
     "@chat-tutor/canvas": "workspace:*",
     "@chat-tutor/shared": "workspace:*",
+    "@chat-tutor/mermaid": "workspace:*",
     "@types/node": "^24.10.0",
     "arktype": "^2.1.25",
     "dotenv": "^17.2.3",

@@ -3,6 +3,7 @@ import type { Tool } from 'xsai'
 import { tool } from 'xsai'
 import { type } from 'arktype'
 import type { CanvasPage } from '@chat-tutor/canvas'
+import type { MermaidPage } from '@chat-tutor/mermaid'
 
 export const getPageTools = async (pages: Page[]) => {
   const checkExist = (id: string) => {
@@ -49,6 +50,33 @@ export const getPageTools = async (pages: Page[]) => {
     strict: false
   })
 
+  const createMermaid = tool({
+    name: 'create_mermaid',
+    description: 'Create a new mermaid page',
+    parameters: type({
+      id: 'string',
+      title: 'string',
+    }),
+    execute: async ({ id, title }) => {
+      const result = checkExist(id)
+      if (result) {
+        return result
+      }
+      pages.push({
+        id,
+        title,
+        type: PageType.MERMAID,
+        steps: [],
+        notes: [],
+      } as MermaidPage)
+      return {
+        success: true,
+        message: 'Page created successfully',
+        page: id,
+      }
+    },
+  })
+
   const note = tool({
     name: 'note',
     description: 'Add markdown note on a page',
@@ -74,5 +102,5 @@ export const getPageTools = async (pages: Page[]) => {
     strict: false
   })
 
-  return await Promise.all([createCanvas, note]) as Tool[]
+  return await Promise.all([createCanvas, createMermaid, note]) as Tool[]
 }
