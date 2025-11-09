@@ -5,6 +5,8 @@
 
 <div align="center">
 
+  <img src="./public/logo.png" alt="ChatTutor" width="150" height="150" />
+
   <h1>ChatTutor</h1>
 
   <p>Visual and Interactive AI Tutor</p>
