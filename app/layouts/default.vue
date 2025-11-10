@@ -32,9 +32,11 @@ const loadChats = async () => {
 
 void loadChats()
 
-const interval = setInterval(loadChats, 5000)
-onUnmounted(() => {
-  clearInterval(interval)
+onMounted(() => {
+  const interval = setInterval(loadChats, 5000)
+  onUnmounted(() => {
+    clearInterval(interval)
+  })
 })
 </script>
 
