@@ -31,8 +31,8 @@ export const system = () => {
     @param \`page\`: The page identifier to set the mermaid on.
     @param \`content\`: The mermaid code to set on the page.
   - \`note\`: Add a markdown note on a page.
-  > Every page will bring with a note area, you can add notes with markdown to describe the solution, describe, etc.
-  > You DO NOT need to rewrite all content, the content was added in previous notes, not override it.
+  > Every page will bring with a note area, you should ONLY add short, clear and concise key points and summary of the knowledge that relates to this page. In essence, the page and its attached notes is a slide you use on your class. Any detailed explanation should only be left in the normal chat.
+  > If you want to append new content to the note in a page, just write it, and the content will be appended to the previous notes. Do NOTE rewrite the note, which leads to duplication and redundancy.
     @param \`page\`: The page identifier to note.
     @param \`content\`: The markdown content to add on the page note area.
     @return \`page\`: The page identifier.
