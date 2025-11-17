@@ -1,9 +1,11 @@
-import { createCanvasRenderer } from '@chat-tutor/canvas'
-import type { CanvasPage, CanvasPageAction } from '@chat-tutor/canvas'
+import { createRenderer } from '@dsl/renderer-runtime'
+import type { CanvasPage } from '@chat-tutor/canvas'
 import type { FullAction } from '@chat-tutor/shared'
 import { PageType } from '@chat-tutor/shared'
-import type { PageCreationAction, PageNoteAction, CanvasPageUpdateAction } from '@chat-tutor/agent'
+import type { PageCreationAction, PageNoteAction } from '@chat-tutor/agent'
 import { createMermaidRenderer, type MermaidPage, type MermaidPageAction } from '@chat-tutor/mermaid'
+
+import '@dsl/math'
 
 export type Page = CanvasPage | MermaidPage
 
@@ -34,25 +36,24 @@ export const useBoard = () => {
   })
 
   const rendererMap = new Map<string,
-    ReturnType<typeof createCanvasRenderer> | ReturnType<typeof createMermaidRenderer>
+    ReturnType<typeof createRenderer> | ReturnType<typeof createMermaidRenderer>
   >()
 
   const loadCanvasPage = (page: CanvasPage) => {
     const container = document.createElement('div')
     container.id = page.id!
-    container.className = 'jxgbox'
-    container.style.width = '90%'
-    container.style.height = '100%'
+    container.style.width = '100%'
+    container.style.border = '1px solid grey'
+    container.style.borderRadius = '10px'
     container.style.display = 'flex'
+    container.style.justifyContent = 'center'
+    container.style.padding = '10px'
     board.value!.appendChild(container)
-    const renderer = createCanvasRenderer(container.id, {
-      range: page.range,
-      domain: page.domain,
-      axis: page.axis,
-      grid: page.grid,
-    })
+    const renderer = createRenderer()
     rendererMap.set(page.id!, renderer)
-    renderer.load(page.steps)
+    for (const step of page.steps) {
+      handleCanvasAction(step)
+    }
   }
 
   const loadMermaidPage = (page: MermaidPage) => {
@@ -84,7 +85,8 @@ export const useBoard = () => {
   const loadPages = (pages: Page[]) => pages.forEach(loadPage)
 
   const handleAction: ActionHandler = (action) => {
-    if (['element', 'update-canvas'].includes(action.type)) {
+    console.log('handleAction', action)
+    if (['document'].includes(action.type)) {
       handleCanvasAction(action)
     } else if (action.type === 'page') {
       handlePageCreationAction(action as unknown as PageCreationAction)
@@ -96,18 +98,17 @@ export const useBoard = () => {
   }
 
   const handleCanvasAction: ActionHandler = (action) => {
+    console.log('handleCanvasAction', action)
     const page = currentPages.value.find(p => p.id === action.page)
     if (!page) return
-    if (action.type === 'element') {
-      const renderer = rendererMap.get(page.id!)
+    console.log('page', page)
+    if (action.type === 'document') {
+      const renderer = rendererMap.get(page.id!) as ReturnType<typeof createRenderer>
       if (renderer) {
-        ; (<ReturnType<typeof createCanvasRenderer>>renderer).load([action as CanvasPageAction])
-      }
-    } else if (action.type === 'update-canvas') {
-      const renderer = rendererMap.get(page.id!)
-      if (renderer) {
-        const { range, domain } = action.options as CanvasPageUpdateAction['options']
-        ; (<ReturnType<typeof createCanvasRenderer>>renderer).setBound(range, domain)
+        const container = board.value!.querySelector(`#${page.id!}`)
+        if (container) {
+          renderer.render(action.options.content as string, container as HTMLElement)
+        }
       }
     }
   }
@@ -122,6 +123,7 @@ export const useBoard = () => {
     p.notes.push(action.options.content)
     if (page.value === p.id) {
       notes.value = p.notes
+      const renderer = rendererMap.get(p.id!) as ReturnType<typeof createRenderer>
     }
   }
 

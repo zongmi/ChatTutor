@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/ui', '@unocss/nuxt'],
-  css: ['@/assets/css/main.css', '@/assets/css/markdown.css', 'katex/dist/katex.min.css', './node_modules/jsxgraph/distrib/jsxgraph.css'],
+  css: [
+    '@/assets/css/main.css',
+    '@/assets/css/markdown.css',
+    'katex/dist/katex.min.css',
+    '@dsl/theme-default/styles/main.css',
+  ],
   app: {
     head: {
       title: 'ChatTutor — 智能对话式辅助教学',

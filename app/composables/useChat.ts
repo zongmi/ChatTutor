@@ -62,11 +62,11 @@ export const useChat = (
     }
     
     eventSource.onerror = (error) => {
+      running.value = false
       console.error('EventSource error:', error)
       if (eventSource) {
         eventSource.close()
         eventSource = null
-        running.value = false
       }
     }
     

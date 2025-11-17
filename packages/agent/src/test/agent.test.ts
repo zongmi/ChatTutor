@@ -30,7 +30,6 @@ describe('agent', () => {
       painter_messages: painterMessages,
       pages,
     }
-    const id = crypto.randomUUID()
-    expect(JSON.stringify(snapshot, null, 2)).toMatchFileSnapshot(`__snapshots__/agent.test.${id}.json`)
+    expect(JSON.stringify(snapshot, null, 2)).toMatchFileSnapshot(`__snapshots__/agent.test.json`)
   })
 })

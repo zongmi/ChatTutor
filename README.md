@@ -36,14 +36,42 @@ ChatTutor effectively solves this problem by bringing all the teaching tools use
 
 ## Features
 
-- [x] Math Canvas
-![Math Canvas](./public/demo1.png)
-- [ ] Code Page
-- [x] Mindmap
-![Mindmap](./public/demo2.png)
-- [ ] Physics Canvas
-- [ ] Digital Logic Canvas
-- [ ] Problem Solving created by AI to user
+##### Math Canvas
+<table>
+  <tr>
+    <td>
+      <img src="./public/demo1.png" alt="Math Canvas" width="100%" />
+    </td>
+    <td>
+      <img src="./public/demo2.png" alt="Math Canvas" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./public/demo3.png" alt="Math Canvas" width="100%" />
+    </td>
+  </tr>
+</table>
+
+##### Code Page (🚧 WIP)
+
+##### Mindmap
+<table>
+  <tr>
+    <td>
+      <img src="./public/demo4.png" alt="Mindmap" width="100%" />
+    </td>
+    <td>
+      <img src="./public/demo5.png" alt="Mindmap" width="100%" />
+    </td>
+  </tr>
+</table>
+
+##### Physics Canvas (🚧 WIP)
+
+##### Digital Logic Canvas (🚧 WIP)
+
+##### Problem Solving created by AI to user (🚧 WIP)
 
 ## Roadmap
 Please refer to our [Roadmap v0.1](https://github.com/sheepbox8646/ChatTutor/issues/1) for the detailed roadmap

@@ -14,8 +14,6 @@ export const system = () => {
   - \`create_canvas\`: Flip to a fresh CANVAS page.
     @param \`id\`: Unique identifier for this page.
     @param \`title\`: Brief page title.
-    @param \`axis\`: Show axes for function or analytic geometry topics.
-    @param \`grid\`: Show grid (typically false for pure geometry problems).
     @return \`id\`: The page identifier.
   - \`create_mermaid\`: Flip to a fresh MERMAID page.
     @param \`id\`: Unique identifier for this page.

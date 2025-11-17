@@ -3,7 +3,7 @@ import { PageType } from '@chat-tutor/shared'
 import type { Tool, Message } from 'xsai'
 import { tool } from 'xsai'
 import { type } from 'arktype'
-import type { CanvasPage, CanvasPageAction } from '@chat-tutor/canvas'
+import type { CanvasPage, DocumentAction } from '@chat-tutor/canvas'
 import type { MermaidPage, MermaidPageAction } from '@chat-tutor/mermaid'
 import { createPainterAgent } from '../painter'
 import type { AgentChunker } from '../types'
@@ -44,10 +44,8 @@ export const getAgentTools = async (
     parameters: type({
       id: 'string',
       title: 'string',
-      axis: type.boolean.describe('Whether to show the axis').default(false),
-      grid: type.boolean.describe('Whether to show the grid').default(false),
     }),
-    execute: async ({ id, title, axis, grid }) => {
+    execute: async ({ id, title }) => {
       const result = checkExist(id)
       if (result) {
         return result
@@ -58,10 +56,6 @@ export const getAgentTools = async (
         type: PageType.CANVAS,
         steps: [],
         notes: [],
-        range: [0, 0],
-        domain: [0, 0],
-        axis: axis ?? false,
-        grid: grid ?? false,
       }
       pages.push(p)
 
@@ -194,15 +188,15 @@ export const getAgentTools = async (
       const painter = createPainterAgent({
         ...painterOptions,
         messages: painterOptions.messages[targetPage.id!],
-        page: targetPage as CanvasPage,
       })
-      const result = await painter(input, (chunk) => {
-        const fullChunk: FullizeAction<CanvasPageAction> = {
-          ...(chunk as CanvasPageAction),
-          page: targetPage.id,
-        }
-        chunker(fullChunk)
-      })
+      const result = await painter(input)
+      const action = {
+        type: 'document',
+        options: { content: result },
+        page,
+      } as DocumentAction
+      chunker(action)
+      targetPage.steps.push(action)
       chunker({
         type: 'draw-end',
         options: { page, result },
