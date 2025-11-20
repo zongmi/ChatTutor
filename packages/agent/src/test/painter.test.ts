@@ -1,4 +1,4 @@
-import { Message } from 'xsai'
+import type { Message } from 'xsai'
 import { createPainterAgent } from '../painter'
 import { describe, it, expect } from 'vitest'
 
@@ -11,10 +11,15 @@ describe('Painter Agent', () => {
       apiKey: process.env.API_KEY!,
       baseURL: process.env.BASE_URL!,
     })
-    const result = await agent('Draw a simple triangle, A = (0, 0), B = (3, 4), C = (1, 2)')
+    const result = await agent({
+      content: 'Draw a simple triangle, A = (0, 0), B = (3, 4), C = (1, 2)',
+      refs: {
+        'x_A': 'The x coordinate of point A',
+      }
+    })
     console.log(result)
     // expect(result).toBeTypeOf('string')
-    expect(result).toMatchFileSnapshot(`__snapshots__/painter.test.md`)
-    expect(messages).toMatchFileSnapshot(`__snapshots__/painter.test.messages.json`)
+    expect(result.content).toMatchFileSnapshot('__snapshots__/painter.test.md')
+    expect(messages).toMatchFileSnapshot('__snapshots__/painter.test.messages.json')
   })
 })

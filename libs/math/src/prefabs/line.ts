@@ -23,11 +23,11 @@ export const line = definePrefab<'line', LineAttributes, PlaneProvides>((context
       watch(() => context.aspectWidth, () => {
         lineElement.attr('x1', `${context.aspectWidth * attrs.from[0]}`)
         lineElement.attr('x2', `${context.aspectWidth * attrs.to[0]}`)
-      })
+      }, { immediate: true })
       watch(() => context.aspectHeight, () => {
         lineElement.attr('y1', `${context.aspectHeight * attrs.from[1]}`)
         lineElement.attr('y2', `${context.aspectHeight * attrs.to[1]}`)
-      })
+      }, { immediate: true })
 
       return lineElement.node()
     }

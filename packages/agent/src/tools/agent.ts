@@ -1,5 +1,5 @@
-import type { Action, FullizeAction, Page } from '@chat-tutor/shared'
-import { PageType } from '@chat-tutor/shared'
+import type { Action, BaseForm, FullizeAction, Page, SliderForm } from '@chat-tutor/shared'
+import { FormType, PageType } from '@chat-tutor/shared'
 import type { Tool, Message } from 'xsai'
 import { tool } from 'xsai'
 import { type } from 'arktype'
@@ -17,6 +17,7 @@ export type CanvasPageDrawEndAction = Action<{
   page: string
   result: string
 }, 'draw-end'>
+export type FormCreationAction<T extends BaseForm<FormType> = BaseForm<FormType>> = Action<T, 'form-creation'>
 
 export const getAgentTools = async (
   { pages, painterOptions, chunker }: {
@@ -56,6 +57,7 @@ export const getAgentTools = async (
         type: PageType.CANVAS,
         steps: [],
         notes: [],
+        forms: [],
       }
       pages.push(p)
 
@@ -70,6 +72,57 @@ export const getAgentTools = async (
       }
     },
     strict: false
+  })
+
+  const createSlider = tool({
+    name: 'create_slider',
+    description: 'Create a slider form on a page based on a reactive variable',
+    parameters: type({
+      page: type('string').describe('The page id to create the slider on'),
+      bind: type('string').describe('The reactive variable name to bind to the slider'),
+      min: type('number').describe('The minimum value of the slider'),
+      max: type('number').describe('The maximum value of the slider'),
+      step: type('number').describe('The step value of the slider'),
+      value: type('number').describe('The initial value of the slider'),
+      title: type('string').describe('The title of the slider'),
+    }),
+    execute: async ({ page, bind, min, max, step, value, title }) => {
+      const targetPage = pages.find(p => p.id === page)
+      if (!targetPage) {
+        return {
+          success: false,
+          message: 'Page not found',
+        }
+      }
+      targetPage.forms.push({
+        type: FormType.SLIDER,
+        bind,
+        min,
+        max,
+        step,
+        value,
+        title,
+      } as SliderForm)
+      const action: FullizeAction<FormCreationAction<SliderForm>> = {
+        type: 'form-creation',
+        options: {
+          type: FormType.SLIDER,
+          bind,
+          min,
+          max,
+          step,
+          value,
+          title,
+        },
+        page: targetPage.id,
+      }
+      chunker(action)
+      return {
+        success: true,
+        message: 'Slider created successfully',
+        page: page,
+      }
+    },
   })
 
   const createMermaid = tool({
@@ -90,6 +143,7 @@ export const getAgentTools = async (
         type: PageType.MERMAID,
         steps: [],
         notes: [],
+        forms: [],
       }
       pages.push(p)
       chunker({
@@ -171,8 +225,9 @@ export const getAgentTools = async (
     parameters: type({
       page: type('string').describe('The page id to draw on'),
       input: type('string').describe('The natural language input to draw on the page'),
+      refs: type.Record(type('string').describe('The name of the variable'), type('string').describe('The description of the variable')).describe('The reactive variables to be exposed'),
     }),
-    execute: async ({ page, input }) => {
+    execute: async ({ page, input, refs: rs }) => {
       chunker({
         type: 'draw-start',
         options: { page, input },
@@ -189,24 +244,29 @@ export const getAgentTools = async (
         ...painterOptions,
         messages: painterOptions.messages[targetPage.id!],
       })
-      const result = await painter(input)
+      const { content, refs } = await painter({
+        content: input,
+        refs: rs,
+      })
       const action = {
         type: 'document',
-        options: { content: result },
+        options: { content },
         page,
       } as DocumentAction
       chunker(action)
       targetPage.steps.push(action)
       chunker({
         type: 'draw-end',
-        options: { page, result },
+        options: { page, result: content },
       } as CanvasPageDrawEndAction)
       return {
         success: true,
-        message: result,
+        message: {
+          refs,
+        },
       }
     },
   })
 
-  return await Promise.all([createCanvas, createMermaid, setMermaid, note, draw]) as Tool[]
+  return await Promise.all([createCanvas, createMermaid, setMermaid, note, draw, createSlider]) as Tool[]
 }

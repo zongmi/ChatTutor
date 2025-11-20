@@ -34,6 +34,12 @@ ChatTutor 是一个配备了电子白板功能的 AI 教师。
 
 ChatTutor 有效地解决了这一问题。它将现实教育场景中的各种教学工具数字化呈现，让用户能够通过电子设备与之交互。我们赋予了 AI 使用这些教学工具的能力，使其真正成为一个“能动手”的教师。
 
+我们实现了一个响应式的DSL语法，模仿了现代前端框架的响应式系统，基于`@vue/reactivity`，让Agent通过响应式变量与用户进行交互，并通过修改响应式变量来控制元素的行为。同时，我们实现了一套数学组件库，并有精美的动画效果。
+
+> [!NOTE]
+>
+> 关于DSL的实现，请参考`packages-dsl`目录；关于组件库的实现，请参考`libs`目录。
+
 ## Features
 
 ##### 数学画板
@@ -49,6 +55,15 @@ ChatTutor 有效地解决了这一问题。它将现实教育场景中的各种�
   <tr>
     <td>
       <img src="./public/demo3.png" alt="Math Canvas" width="100%" />
+    </td>
+  </tr>
+</table>
+
+##### 交互式表单
+<table>
+  <tr>
+    <td>
+      <img src="./public/demo6.png" alt="Interactive Forms" width="100%" />
     </td>
   </tr>
 </table>
@@ -123,7 +138,7 @@ docker compose up -d
 ## 核心功能所用项目
 
 - [xsai](https://github.com/moeru-ai/xsai): 轻量级 AI SDK。
-- [jsxgraph](https://jsxgraph.org/): 交互式几何、函数绘图与数据可视化库。
+- [@vue/reactivity](https://github.com/vuejs/core/tree/main/packages/reactivity): Vue 的响应式系统。
 
 ## 赞助商
 我们的赞助商列表如下（排名不分先后）：
@@ -135,6 +150,6 @@ docker compose up -d
 [![Star History Chart](https://api.star-history.com/svg?repos=sheepbox8646/ChatTutor&type=date&legend=top-left)](https://www.star-history.com/#sheepbox8646/ChatTutor&type=date&legend=top-left)
 
 ---
-**MIT 许可证**
+**AGPL v3 License**
 
 *版权  (c) 2025 Acbox, 保留所有权利。*

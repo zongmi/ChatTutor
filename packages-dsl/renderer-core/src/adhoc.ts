@@ -36,6 +36,7 @@ export function toProp(key: string, source: AttributeValue, context: Context) {
       ? _array(source as unknown as AttributeValue[])
       : Object.fromEntries(Object.entries(source).map(([key, value]) => [key, toProp(key, value, context)]))
   }
+  const _undefined = () => true
     
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const typeMap = new Map<string, (source: any) => unknown>()
@@ -43,11 +44,11 @@ export function toProp(key: string, source: AttributeValue, context: Context) {
   typeMap.set('number', _common)
   typeMap.set('boolean', _common)
   typeMap.set('null', _common)
-  typeMap.set('undefined', _common)
   typeMap.set('object', _object)
+  typeMap.set('undefined', _undefined)
   return typeMap.get(typeof source)?.(source)
 }
 
 export function toProps<T extends Record<string, unknown> = Record<string, unknown>>(attrs: Record<string, AttributeValue>, context: Context): T & { [key: string]: unknown } {
-  return Object.fromEntries(Object.entries(attrs).map(([key, value]) => [key.replace(/^:/, ''), toProp(key, value, context)])) as T & { [key: string]: unknown }
+  return Object.fromEntries(Object.entries(attrs).map(([key, value]) => [key.replace(/^:/, ''), typeof value === 'undefined' || value === '' ? true : toProp(key, value, context)])) as T & { [key: string]: unknown }
 }

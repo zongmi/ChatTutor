@@ -137,17 +137,17 @@ export const dslSyntax = () => {
   `.trim().replaceAll('$', '`')
 }
 
-export const notices = () => {
+export const notices = (example: string = 'element') => {
   return `
   1. use a JavaScript value in attributes should use \`:\` prefix on attribute name. JSX is **NOT Allowed**
-  - Good: \`<element :attr="1 + 1"/>\`
-  - Bad: \`<element attr={1 + 1}/>\`
-  - Bad: \`<element attr="{1 + 1}"/>\`
+  - Good: \`<${example} :attr="1 + 1"/>\`
+  - Bad: \`<${example} attr={1 + 1}/>\`
+  - Bad: \`<${example} attr="{1 + 1}"/>\`
 
   2. List and Object should also use \`:\` prefix on attribute name.
-  - Good: \`<element :list="[1, 2, 3]"/>\`
-  - Good: \`<element :options="{a: 1, b: 2}"/>\`
-  - Bad: \`<element list="[1, 2, 3]"/>\`
-  - Bad: \`<element options="{a: 1, b: 2}"/>\`
+  - Good: \`<${example} :list="[1, 2, 3]"/>\`
+  - Good: \`<${example} :options="{a: 1, b: 2}"/>\`
+  - Bad: \`<${example} list="[1, 2, 3]"/>\`
+  - Bad: \`<${example} options="{a: 1, b: 2}"/>\`
   `.trim()
 }

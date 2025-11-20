@@ -1,6 +1,7 @@
-import type { AgentChunker, BaseAgentOptions } from './types'
-import { generateText, message, streamText, type StreamTextEvent } from 'xsai'
+import type { BaseAgentOptions } from './types'
+import { generateText, message } from 'xsai'
 import { painter } from './prompts'
+import { parseRootDocumentInfo } from '@dsl/x'
 
 const parse = (content: string) => {
   const doc = content
@@ -17,6 +18,11 @@ export interface PainterAgentOptions extends BaseAgentOptions {
   // page: CanvasPage
 }
 
+export type PainterAgentInput = {
+  content: string
+  refs?: Record<string, string>
+}
+
 export const createPainterAgent = (options: PainterAgentOptions) => {
   if (options.messages.length === 0 || options.messages[0].role !== 'system') {
     options.messages.unshift(
@@ -24,10 +30,16 @@ export const createPainterAgent = (options: PainterAgentOptions) => {
     )
   }
 
+  type Result = {
+    content: string
+    refs: Record<string, string>
+  }
   return async (
-    input: string
-  ): Promise<string> => {
-    options.messages.push(message.user(input))
+    input: PainterAgentInput
+  ): Promise<Result> => {
+    options.messages.push(message.user(
+      painter.user(input)
+    ))
     const { text, messages } = await generateText({
       model: options.model,
       apiKey: options.apiKey,
@@ -36,6 +48,11 @@ export const createPainterAgent = (options: PainterAgentOptions) => {
     })
     options.messages.length = 0
     options.messages.push(...messages)
-    return parse(text ?? '')
+    const content = parse(text ?? '')
+    const { refs } = parseRootDocumentInfo(content)
+    return {
+      content,
+      refs,
+    }
   }
 }

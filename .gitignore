@@ -25,3 +25,6 @@ logs
 
 # Test snapshots
 __snapshots__
+
+# Vitepress
+cache

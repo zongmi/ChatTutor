@@ -2,7 +2,7 @@
 import { MarkdownRender } from 'vue-renderer-markdown'
 import { v4 } from 'uuid'
 
-const { handleAction, board, loadPages, currentPages, page, notes } = useBoard()
+const { handleAction, board, loadPages, currentPages, page, notes, forms } = useBoard()
 const { messages, input, resources, send, loadMessages, running } = useChat(handleAction)
 const promptAreaRef = ref()
 
@@ -53,14 +53,17 @@ onMounted(() => {
   <div class="flex pt-10 md:pt-0 flex-col md:flex-row w-full h-full overflow-hidden">
     <div class="flex flex-1 flex-col h-full items-center justify-center overflow-hidden min-w-0 p-5 gap-2">
       <div class="flex flex-row w-full h-full gap-1">
+        <div v-if="forms.length > 0" class="w-1/5 md:h-130">
+          <InteractiveForms :forms="forms" :page="page!" />
+        </div>
         <div
           ref="board"
-          class="h-50 md:h-130 flex justify-center"
-          :class="notes.length > 0 ? 'w-2/3' : 'w-full'"
+          class="h-50 md:h-130 w-3/5 flex justify-center"
+          :class="['w-full', 'w-4/5', 'w-3/5'][([forms.length > 0, notes.length > 0].filter(Boolean).length)]"
         />
         <div
           v-if="notes.length > 0"
-          class="h-125 shadow-sm max-h-50 md:max-h-130 w-1/3 text-sm flex flex-col bg-gray-100 border border-gray-300 rounded-lg p-3 overflow-y-auto markdown"
+          class="h-130 shadow-sm max-h-50 md:max-h-130 w-1/5 text-sm flex flex-col bg-gray-100 border border-gray-300 rounded-lg p-3 overflow-y-auto markdown"
         >
           <MarkdownRender :content="notes.join('\n\n')" />
         </div>

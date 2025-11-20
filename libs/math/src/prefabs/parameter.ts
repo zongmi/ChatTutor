@@ -41,8 +41,8 @@ export const parameter = definePrefab<'parameter', ParameterAttributes, PlanePro
         path.attr('d', pathData)
       }
 
-      watch(() => context.aspectWidth, updatePath)
-      watch(() => context.aspectHeight, updatePath)
+      watch(() => context.aspectWidth, updatePath, { immediate: true })
+      watch(() => context.aspectHeight, updatePath, { immediate: true })
 
       return path.node()
     }

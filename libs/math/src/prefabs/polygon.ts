@@ -29,8 +29,8 @@ export const polygon = definePrefab<'polygon', PolygonAttributes, PlaneProvides>
         elem.attr('points', points)
       }
 
-      watch(() => context.aspectWidth, updatePoints)
-      watch(() => context.aspectHeight, updatePoints)
+      watch(() => context.aspectWidth, updatePoints, { immediate: true })
+      watch(() => context.aspectHeight, updatePoints, { immediate: true })
 
       return elem.node()
     }

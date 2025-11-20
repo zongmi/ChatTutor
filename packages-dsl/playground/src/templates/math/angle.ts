@@ -5,7 +5,7 @@ export const angle: Template = {
   content: `
 ---
 ---
-<plane range="[-10, 10]" domain="[-10, 10]">
+<plane range="[-10, 10]" domain="[-10, 10]" grid>
   <!-- Angle at origin -->
   <arrow from="[0, 0]" to="[5, 0]" color="primary"/>
   <arrow from="[0, 0]" to="[3, 4]" color="primary"/>

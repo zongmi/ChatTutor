@@ -1,8 +1,8 @@
 import { createRenderer } from '@dsl/renderer-runtime'
 import type { CanvasPage } from '@chat-tutor/canvas'
-import type { FullAction } from '@chat-tutor/shared'
+import type { BaseForm, FormType, FullAction } from '@chat-tutor/shared'
 import { PageType } from '@chat-tutor/shared'
-import type { PageCreationAction, PageNoteAction } from '@chat-tutor/agent'
+import type { FormCreationAction, PageCreationAction, PageNoteAction } from '@chat-tutor/agent'
 import { createMermaidRenderer, type MermaidPage, type MermaidPageAction } from '@chat-tutor/mermaid'
 
 import '@dsl/math'
@@ -11,17 +11,25 @@ export type Page = CanvasPage | MermaidPage
 
 export type ActionHandler = (action: FullAction) => void
 
+export const rendererMap = new Map<string,
+  ReturnType<typeof createRenderer> | ReturnType<typeof createMermaidRenderer>
+>()
+
 export const useBoard = () => {
   const board = ref<HTMLElement | null>(null)
   const currentPages = ref<Page[]>([])
   const page = ref<string | null>(null)
   const notes = ref<string[]>([])
+  const forms = ref<BaseForm<FormType>[]>([])
 
   onMounted(() => {
     watch(page, (id) => {
       const p = currentPages.value.find(p => p.id === id)
       if (p && p.notes) {
         notes.value = p.notes
+      }
+      if (p && p.forms) {
+        forms.value = p.forms
       }
       nextTick(() => {
         if (!id) return
@@ -34,10 +42,6 @@ export const useBoard = () => {
       })
     })
   })
-
-  const rendererMap = new Map<string,
-    ReturnType<typeof createRenderer> | ReturnType<typeof createMermaidRenderer>
-  >()
 
   const loadCanvasPage = (page: CanvasPage) => {
     const container = document.createElement('div')
@@ -92,8 +96,19 @@ export const useBoard = () => {
       handlePageCreationAction(action as unknown as PageCreationAction)
     } else if (action.type === 'note') {
       handlePageNoteAction(action as PageNoteAction)
+    } else if (action.type === 'form-creation') {
+      handleFormCreationAction(action as FormCreationAction)
     } else if (['set-mermaid'].includes(action.type)) {
       handleMermaidAction(action as MermaidPageAction)
+    }
+  }
+
+  const handleFormCreationAction: ActionHandler = (action) => {
+    const p = currentPages.value.find(p => p.id === action.page)
+    if (!p) return
+    p.forms.push(action.options as BaseForm<FormType>)
+    if (p.id === page.value) {
+      forms.value = p.forms
     }
   }
 
@@ -123,7 +138,6 @@ export const useBoard = () => {
     p.notes.push(action.options.content)
     if (page.value === p.id) {
       notes.value = p.notes
-      const renderer = rendererMap.get(p.id!) as ReturnType<typeof createRenderer>
     }
   }
 
@@ -142,6 +156,7 @@ export const useBoard = () => {
     board,
     page,
     notes,
+    forms,
     currentPages,
     handleAction,
     loadPage,

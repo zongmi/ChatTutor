@@ -117,6 +117,8 @@ export function createRenderer() {
     element.statements ??= {}
     element.children ??= []
 
+    console.log('props', props)
+
     if (validator) {
       if (!validator()) {
         return null

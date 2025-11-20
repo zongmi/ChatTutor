@@ -31,10 +31,10 @@ export const dot = definePrefab<'dot', DotAttributes, PlaneProvides>((context) =
 
       watch(() => context.aspectWidth, (value) => {
         root.attr('transform', `translate(${value * attrs.x}, ${context.aspectHeight * attrs.y})`)
-      })
+      }, { immediate: true })
       watch(() => context.aspectHeight, (value) => {
         root.attr('transform', `translate(${context.aspectWidth * attrs.x}, ${value * attrs.y})`)
-      })
+      }, { immediate: true })
 
       return root.node()
     }

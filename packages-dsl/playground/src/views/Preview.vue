@@ -40,7 +40,8 @@ const errors = ref<RendererError<string>[]>([])
 const _render = () => {
   const { content, type } = template.value ?? {}
   if (!content) return
-  const { render, getErrors } = createRenderer()
+  const { render, getErrors, getActiveContext } = createRenderer()
+  console.log(getActiveContext())
   render(content, container.value!)
   nextTick(() => {
     console.log(getErrors())

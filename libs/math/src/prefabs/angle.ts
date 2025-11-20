@@ -101,8 +101,8 @@ export const angle = definePrefab<'angle', AngleAttributes, PlaneProvides>((cont
         }
       }
 
-      watch(() => context.aspectWidth, updateArc)
-      watch(() => context.aspectHeight, updateArc)
+      watch(() => context.aspectWidth, updateArc, { immediate: true })
+      watch(() => context.aspectHeight, updateArc, { immediate: true })
 
       return root.node()
     }

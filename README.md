@@ -34,6 +34,12 @@ Traditional chatbots interact with users primarily through text, which is suffic
 
 ChatTutor effectively solves this problem by bringing all the teaching tools used in real-world educational scenarios to the forefront, allowing users to interact with them through electronic devices. We've empowered AI with the ability to use these tools, enabling AI to become a truly hands-on teacher.
 
+We've implemented a reactive DSL syntax that mimics the reactive system of modern frontend frameworks, based on `@vue/reactivity`, allowing Agents to interact with users through reactive variables and control element behavior by modifying reactive variables. Additionally, we've built a math component library with beautiful animation effects.
+
+> [!NOTE]
+>
+> For DSL implementation details, refer to the `packages-dsl` directory; for component library implementation, see the `libs` directory.
+
 ## Features
 
 ##### Math Canvas
@@ -49,6 +55,15 @@ ChatTutor effectively solves this problem by bringing all the teaching tools use
   <tr>
     <td>
       <img src="./public/demo3.png" alt="Math Canvas" width="100%" />
+    </td>
+  </tr>
+</table>
+
+##### Interactive Forms
+<table>
+  <tr>
+    <td>
+      <img src="./public/demo6.png" alt="Interactive Forms" width="100%" />
     </td>
   </tr>
 </table>
@@ -122,7 +137,7 @@ docker compose up -d
 ## Projects Used on Core Features
 
 - [xsai](https://github.com/moeru-ai/xsai): Extra-small AI SDK.
-- [jsxgraph](https://jsxgraph.org/): Interactive geometry, function plotting, and data visualization library.
+- [@vue/reactivity](https://github.com/vuejs/core/tree/main/packages/reactivity): Vue's reactive system.
 
 ## Sponsors
 Our sponsors are listed as follows (in no particular order):
@@ -134,6 +149,6 @@ Our sponsors are listed as follows (in no particular order):
 [![Star History Chart](https://api.star-history.com/svg?repos=sheepbox8646/ChatTutor&type=date&legend=top-left)](https://www.star-history.com/#sheepbox8646/ChatTutor&type=date&legend=top-left)
 
 ---
-**MIT License**
+**AGPL v3 License**
 
 *Copyright (c) 2025 Acbox, All rights reserved.*

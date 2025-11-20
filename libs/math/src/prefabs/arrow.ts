@@ -44,11 +44,11 @@ export const arrow = definePrefab<'arrow', ArrowAttributes, PlaneProvides>((cont
       watch(() => context.aspectWidth, () => {
         line.attr('x1', `${context.aspectWidth * attrs.from[0]}`)
         line.attr('x2', `${context.aspectWidth * attrs.to[0]}`)
-      })
+      }, { immediate: true })
       watch(() => context.aspectHeight, () => {
         line.attr('y1', `${context.aspectHeight * attrs.from[1]}`)
         line.attr('y2', `${context.aspectHeight * attrs.to[1]}`)
-      })
+      }, { immediate: true })
 
       return root.node()
     }

@@ -21,7 +21,7 @@ describe('agent', () => {
         messages: painterMessages
       },
     })
-    const result = await agent('Hello!', (chunk) => {
+    const result = await agent('我想学习二次函数', (chunk) => {
       console.log(chunk)
     })
     expect(result.success).toBe(true)
