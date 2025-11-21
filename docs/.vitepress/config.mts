@@ -40,7 +40,7 @@ export default withMermaid({
         },
 
         socialLinks: [
-          { icon: 'github', link: 'https://github.com/sheepbox8646/ChatTutor' }
+          { icon: 'github', link: 'https://github.com/HugeCatLab/ChatTutor' }
         ]
       },
     },
@@ -78,7 +78,7 @@ export default withMermaid({
         },
 
         socialLinks: [
-          { icon: 'github', link: 'https://github.com/sheepbox8646/ChatTutor' }
+          { icon: 'github', link: 'https://github.com/HugeCatLab/ChatTutor' }
         ],
         
         outline: {

@@ -12,12 +12,12 @@
   <p>可视化与交互式 AI 教师</p>
   
   <div align="center">
-    <img src="https://img.shields.io/github/package-json/v/sheepbox8646/ChatTutor" alt="Version" />
-    <img src="https://img.shields.io/github/license/sheepbox8646/ChatTutor" alt="License" />
-    <img src="https://img.shields.io/github/stars/sheepbox8646/ChatTutor?style=social" alt="Stars" />
-    <img src="https://img.shields.io/github/forks/sheepbox8646/ChatTutor?style=social" alt="Forks" />
-    <img src="https://img.shields.io/github/last-commit/sheepbox8646/ChatTutor" alt="Last Commit" />
-    <img src="https://img.shields.io/github/issues/sheepbox8646/ChatTutor" alt="Issues" />
+    <img src="https://img.shields.io/github/package-json/v/HugeCatLab/ChatTutor" alt="Version" />
+    <img src="https://img.shields.io/github/license/HugeCatLab/ChatTutor" alt="License" />
+    <img src="https://img.shields.io/github/stars/HugeCatLab/ChatTutor?style=social" alt="Stars" />
+    <img src="https://img.shields.io/github/forks/HugeCatLab/ChatTutor?style=social" alt="Forks" />
+    <img src="https://img.shields.io/github/last-commit/HugeCatLab/ChatTutor" alt="Last Commit" />
+    <img src="https://img.shields.io/github/issues/HugeCatLab/ChatTutor" alt="Issues" />
   </div>
   
 </div>
@@ -90,7 +90,7 @@ ChatTutor 有效地解决了这一问题。它将现实教育场景中的各种�
 
 
 ## Roadmap
-请参考我们的 [v0.1 路线图](https://github.com/sheepbox8646/ChatTutor/issues/1) 以了解详细计划。
+请参考我们的 [v0.1 路线图](https://github.com/HugeCatLab/ChatTutor/issues/1) 以了解详细计划。
 
 ## 快速开始
 
@@ -130,7 +130,7 @@ cp .env.example .env
 ### 运行
 
 ```bash
-git clone https://github.com/sheepbox8646/ChatTutor.git
+git clone https://github.com/HugeCatLab/ChatTutor.git
 cd ChatTutor
 docker compose up -d
 ```
@@ -147,7 +147,7 @@ docker compose up -d
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sheepbox8646/ChatTutor&type=date&legend=top-left)](https://www.star-history.com/#sheepbox8646/ChatTutor&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=HugeCatLab/ChatTutor&type=date&legend=top-left)](https://www.star-history.com/#HugeCatLab/ChatTutor&type=date&legend=top-left)
 
 ---
 **AGPL v3 License**
