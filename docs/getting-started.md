@@ -13,7 +13,7 @@ This guide will help you get ChatTutor up and running on your system.
 Clone the repository:
 
 ```bash
-git clone https://github.com/sheepbox8646/ChatTutor.git
+git clone https://github.com/HugeCatLab/ChatTutor.git
 cd ChatTutor
 ```
 

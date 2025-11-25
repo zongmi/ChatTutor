@@ -4,6 +4,8 @@ import { getAgentTools } from './tools'
 import type { Action, FullAction, Page } from '@chat-tutor/shared'
 import type { ReadableStream } from 'node:stream/web'
 import type { AgentChunker, BaseAgentOptions } from './types'
+import { createBlockParser } from '../utils/blockParser'
+import { createBlockParser } from '../utils/blockParser'
 
 export type TextChunkAction = Action<{ chunk: string }, 'text'>
 export type PageCreationAction<T extends Page = Page> = Action<T, 'page'>
@@ -35,6 +37,18 @@ export const createAgent = (options: AgentOptions) => {
     chunker: AgentChunker,
     { images }: AdditionalInput = {}
   ) => {
+    // Mermaid block parser
+    const emitText = (chunk: string) => {
+      if (!chunk || chunk.trim().length === 0) return
+      const trimmedChunk = chunk.trim()
+      chunker({ type: 'text', options: { chunk: trimmedChunk } } as TextChunkAction)
+    }
+    const parser = createBlockParser({
+      pages: options.pages,
+      emit: (action) => chunker(action),
+      emitText: emitText,
+    })
+
     const tools = (await Promise.all([
       getAgentTools({
         pages: options.pages,
@@ -58,7 +72,16 @@ export const createAgent = (options: AgentOptions) => {
       options.messages.push(...ms)
     })
     for await (const chunk of <ReadableStream<string>>textStream) {
-      chunker({
+      // chunker({
+      //   type: 'text',
+      //   options: { chunk },
+      // } as TextChunkAction)
+      parser.handle({
+      // chunker({
+      //   type: 'text',
+      //   options: { chunk },
+      // } as TextChunkAction)
+      parser.handle({
         type: 'text',
         options: { chunk },
       } as TextChunkAction)

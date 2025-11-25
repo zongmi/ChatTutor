@@ -10,7 +10,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/sheepbox8646/ChatTutor.git
+git clone https://github.com/HugeCatLab/ChatTutor.git
 cd ChatTutor
 docker compose up -d
 ```

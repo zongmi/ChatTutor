@@ -18,8 +18,8 @@ export function tex(input: string, color: string = 'primary') {
     const katexElement = div.querySelector('.katex')
     if (!katexElement) return
     const { width: w, height: h } = katexElement.getBoundingClientRect()
-    object.attr('width', `${w}`)
-    object.attr('height', `${h}`)
+    object.attr('width', `${w * 2}`)
+    object.attr('height', `${h * 2}`)
   }
   return [container.node(), mount] as [Element, () => void]
 }

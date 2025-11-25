@@ -11,9 +11,9 @@ export const label: Template = {
   <label x="8" y="0" content="x" color="success"/>
   
   <!-- Mathematical expressions -->
-  <label x="-6" y="6" content="\\alpha + \\beta" color="info"/>
-  <label x="6" y="6" content="\\int_0^1 f(x)dx" color="warning"/>
-  <label x="-6" y="-6" content="\\sqrt{x^2 + y^2}" color="danger"/>
+  <label x="-6" y="6" content="\\alpha + \\beta"/>
+  <label x="6" y="6" content="\\int_0^1 f(x)dx"/>
+  <label x="-6" y="-6" content="\\sqrt{x^2 + y^2}"/>
   
   <!-- With corresponding points -->
   <dot x="0" y="0" color="primary"/>

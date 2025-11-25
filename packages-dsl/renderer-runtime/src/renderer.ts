@@ -162,7 +162,7 @@ export function createRenderer() {
       mount: onMount,
     }
 
-    const node = generator(
+    let node = generator(
       { ...defaults, ...props },
       () => children, generatorContext)
     for (const { post } of statementResolvers) {
@@ -180,12 +180,20 @@ export function createRenderer() {
       element.events ??= {}
       element.children ??= []
       const attrs = toProps(element.attrs, getActiveContext())
+      const localMountQueue: (() => void)[] = []
       const fakeContext: PrefabGeneratorContext = {
-        mount: () => { }
+        mount: (callback: () => void) => {
+          localMountQueue.push(callback)
+        }
       }
       const newNode = generator({ ...defaults, ...attrs }, () => children, fakeContext)
       delegate(newNode, element.events)
+      localMountQueue.forEach(cb => cb())
+
+      // 如果节点类型兼容，尝试替换以保留引用（但 morphdom 实际上做得很好，只是不支持副作用）
+      // 关键是：现在 newNode 已经拥有了完整的内容（因为 localMountQueue 执行了）
       patch(node, newNode)
+
       return newNode
     }
     effect(update)

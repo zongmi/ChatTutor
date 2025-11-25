@@ -18,7 +18,9 @@ const handleSend = () => {
   })
 }
 
-if (initialInput || initialImages) {
+const hasInitialContent = !!(initialInput || initialImages)
+
+if (hasInitialContent) {
   input.value = initialInput
   if (initialImages) {
     console.log(initialImages)
@@ -45,7 +47,9 @@ void (async () => {
 })()
 
 onMounted(() => {
-  handleSend()
+  if (hasInitialContent) {
+    handleSend()
+  }
 })
 </script>
 

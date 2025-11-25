@@ -10,6 +10,7 @@ import { comprehensive } from './comprehensive'
 import { trigonometry } from './trigonometry'
 import { calculus } from './calculus'
 import { vectors } from './vectors'
+import { e1 } from './e1'
 
 export const math = [
   plane,
@@ -24,4 +25,5 @@ export const math = [
   trigonometry,
   calculus,
   vectors,
+  e1
 ]
